@@ -5,15 +5,11 @@
     use App\Author;
     use Illuminate\Http\Request;
     use App\Post;
-    use Illuminate\Support\Facades\Auth;
     
     class AuthorsController extends Controller
     {
         public function index()
         {
-            
-            // $authors = Author::get();
-            //
             return view('authors.authors');
         }
         
@@ -30,15 +26,15 @@
             return view('authors.create');
         }
         
-        public function store()
+        public function store(Request $request)
         {
             
-            $this->validate(request(), [
+            $this->validate($request, [
                 'name' => 'required|max:50',
             ]);
             
             Author::create([
-                'name' => request('name'),
+                'name' => $request->input('name'),
             ]);
             
             return redirect('/');
@@ -53,16 +49,16 @@
             return redirect('/');
         }
         
-        public function update()
+        public function update(Request $request)
         {
-            $this->validate(request(), [
+            $this->validate($request, [
                 'name' => 'required|max:50',
             ]);
-            $author = Author::find(request('id'));
-            $author->name = request('name');
+            $author = Author::find($request->input('id'));
+            $author->name = $request->input('name');
             $author->updated_at = date('Y-m-d H:i:s');
             $author->save();
             
-            return redirect('/authors/'.request("id"));
+            return redirect('/authors/'.$request->input("id"));
         }
     }

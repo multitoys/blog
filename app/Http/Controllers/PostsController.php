@@ -7,6 +7,7 @@
     
     class PostsController extends Controller
     {
+        
         public function show($id)
         {
             $post = Post::find($id);
@@ -19,22 +20,22 @@
             return view('posts.create', ['author' => $author]);
         }
     
-        public function storeNew()
+        public function storeNew(Request $request)
         {
     
-            $this->validate(request(), [
+            $this->validate($request, [
                 'author_id' => 'required',
                 'title' => 'required|max:150',
                 'description' => 'required',
             ]);
         
             Post::create([
-                'author_id' => request('author_id'),
-                'title' => request('title'),
-                'description' => request('description'),
+                'author_id' => $request->input('author_id'),
+                'title' => $request->input('title'),
+                'description' => $request->input('description'),
             ]);
         
-            return redirect('/authors/'.request('author_id'));
+            return redirect('/authors/'.$request->input('author_id'));
         
         }
     
@@ -45,19 +46,19 @@
             return view('posts.update', compact('post'));
         }
         
-        public function store()
+        public function store(Request $request)
         {
-            $this->validate(request(), [
+            $this->validate($request, [
                 'title' => 'required|max:150',
                 'description' => 'required',
             ]);
-            $post = Post::find(request('id'));
-            $post->title = request('title');
-            $post->description = request('description');
+            $post = Post::find($request->input('id'));
+            $post->title = $request->input('title');
+            $post->description = $request->input('description');
             $post->updated_at = date('Y-m-d H:i:s');
             $post->save();
             
-            return redirect('/post/'.request("id"));
+            return redirect('/post/'.$request->input("id"));
         }
         
         public function delete($id)
