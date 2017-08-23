@@ -4,7 +4,7 @@
 
     <h1>Create post</h1>
 
-    <form method="get" action="/posts/store">
+    <form method="post" action="/post/add">
         {{csrf_field()}}
         <div class="form-group">
             <label for="title">Title</label>
@@ -15,11 +15,7 @@
             <textarea name="description" class="form-control" rows="15"></textarea>
         </div>
 
-        <select class="form-control" name="author_id">
-            @foreach(App\Author::all() as $author)
-                <option value="{{ $author->id }}">{{ $author->name }}</option>
-            @endforeach
-        </select>
+        <input type="hidden" name="author_id" value="{{$author}}">
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 

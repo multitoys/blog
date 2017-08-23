@@ -22,6 +22,7 @@
     
         public function storeNew(Request $request)
         {
+    
             $this->validate($request, [
                 'author_id' => 'required',
                 'title' => 'required|max:150',
@@ -35,6 +36,7 @@
             ]);
         
             return redirect('/authors/'.$request->input('author_id'));
+        
         }
     
         public function update($id)
@@ -61,6 +63,7 @@
         
         public function delete($id)
         {
+        
             Post::destroy($id);
         
             return redirect('/');

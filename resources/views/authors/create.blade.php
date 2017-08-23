@@ -4,7 +4,7 @@
 
     <h1>create author</h1>
 
-    <form method="get" action="/authors">
+    <form method="post" action="/authors">
         {{csrf_field()}}
         <div class="form-group">
             <label for="exampleInputEmail1">Name</label>

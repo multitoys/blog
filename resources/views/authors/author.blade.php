@@ -4,7 +4,7 @@
 
     <h1>All posts of {{ $author->name }}</h1>
 
-    <form method="get" action="/authors/update">
+    <form method="post" action="/authors/update">
         {{csrf_field()}}
         <div class="form-group">
             <label for="exampleInputEmail1">Name</label>
@@ -21,16 +21,16 @@
         <div class="container">
 
             <div class="row">
-                <a href="/posts/create" class="btn btn-success">Add Post</a>
+                <a href="/post/create/{{$author->id}}" class="btn btn-success">Add Post</a>
             </div>
             <div class="row">
                 @foreach($author->posts as $post)
                     <div class="card">
-                        <a href="/posts/{{ $post->id }}">
+                        <a href="/post/{{ $post->id }}">
                             <p class="card-text">{{ $post->title }}</p>
                         </a>
                         <p class="card-text">{{ substr($post->description, 0, 77) }}</p>
-                        <a href="/posts/{{ $post->id }}" class="btn btn-warning">View...</a>
+                        <a href="/post/{{ $post->id }}" class="btn btn-warning">View...</a>
                     </div>
                 @endforeach
             </div>

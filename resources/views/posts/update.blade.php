@@ -4,7 +4,7 @@
 
     <h1>Update post</h1>
 
-    <form method="post" action="/posts/{{ $post->id }}/update">
+    <form method="post" action="/post/store">
         {{csrf_field()}}
         <div class="form-group">
             <label for="title">Title</label>
