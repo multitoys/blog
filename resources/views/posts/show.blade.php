@@ -7,8 +7,8 @@
 
     <div class="content">
         <div class="row">
-            <a href="/post/delete/{{ $post->id }}/" class="btn btn-danger">Delete Post</a>
-            <a href="/post/update/{{ $post->id }}/" class="btn btn-info">Update Post</a>
+            <a href="/posts/{{ $post->id }}/destroy" class="btn btn-danger">Delete Post</a>
+            <a href="/posts/{{ $post->id }}/edit" class="btn btn-info">Update Post</a>
         </div>
         <div class="row">
             {{ $post->description }}
