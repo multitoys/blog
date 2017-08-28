@@ -4,7 +4,7 @@
 
     <h1>Create post</h1>
 
-    <form method="get" action="/posts/store">
+    <form method="post" action="/posts/store">
         {{csrf_field()}}
         <div class="form-group">
             <label for="title">Title</label>

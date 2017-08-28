@@ -6,6 +6,7 @@
 
     <form method="get" action="/authors/update">
         {{csrf_field()}}
+        {{ method_field('PUT') }}
         <div class="form-group">
             <label for="exampleInputEmail1">Name</label>
             <input type="text" name="name" class="form-control" value="{{ $author->name }}">

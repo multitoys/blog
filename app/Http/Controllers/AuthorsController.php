@@ -79,7 +79,15 @@
          */
         public function update(Request $request, $id)
         {
-            //
+            $this->validate($request, [
+                'name' => 'required|max:50',
+            ]);
+            $author = Author::find($id);
+            $author->name = $request->input('name');
+            $author->updated_at = date('Y-m-d H:i:s');
+            $author->save();
+    
+            return redirect('/authors/'.$id);
         }
         
         /**

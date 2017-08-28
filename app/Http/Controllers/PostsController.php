@@ -41,13 +41,14 @@ class PostsController extends Controller
             'description' => 'required',
         ]);
     
-        Post::create([
+        $post = new Post([
             'author_id' => $request->input('author_id'),
             'title' => $request->input('title'),
             'description' => $request->input('description'),
         ]);
     
-        return redirect('/authors/'.$request->input('author_id'));
+        // return redirect('/authors/'.$request->input('author_id'));
+        return redirect('/posts/'.$post->id);
     }
 
     /**

@@ -3,9 +3,11 @@
 @section('content')
 
     <h1>Update post</h1>
-
-    <form method="post" action="/posts/{{ $post->id }}/update">
-        {{csrf_field()}}
+    {{ \Collective\Html\FormBuilder::open(array(
+        'url'=>'/posts/'.$post->id.'/update',
+        'method'=>'PUT'
+    )) }}
+    {{--<form method="post" action="/posts/{{ $post->id }}/update">--}}
         <div class="form-group">
             <label for="title">Title</label>
             <input type="text" name="title" class="form-control" value="{{ $post->title }}">
@@ -17,6 +19,6 @@
 
         <input type="hidden" name="id" value="{{ $post->id }}">
         <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
-
+    {{--</form>--}}
+    {{ \Collective\Html\FormBuilder::close() }}
 @endsection
