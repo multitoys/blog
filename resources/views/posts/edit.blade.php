@@ -3,7 +3,7 @@
 @section('content')
 
     <h1>Update post</h1>
-    {{ \Collective\Html\FormBuilder::open(array(
+    {{ Form::open(array(
         'url'=>'/posts/'.$post->id.'/update',
         'method'=>'PUT'
     )) }}
@@ -20,5 +20,5 @@
         <input type="hidden" name="id" value="{{ $post->id }}">
         <button type="submit" class="btn btn-primary">Submit</button>
     {{--</form>--}}
-    {{ \Collective\Html\FormBuilder::close() }}
+    {{ Form::close() }}
 @endsection
