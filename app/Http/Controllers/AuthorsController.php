@@ -32,10 +32,7 @@
             $this->validate($request, [
                 'name' => 'required|max:50',
             ]);
-            
-            Author::create([
-                'name' => $request->input('name'),
-            ]);
+            Author::create($request->all());
             
             return redirect('/');
             

@@ -4,6 +4,7 @@
 
     <h1>All posts of {{ $author->name }}</h1>
 
+    <image src="{{ $author->cover }}">
     <form method="post" action="/authors/update">
         {{csrf_field()}}
         <div class="form-group">
