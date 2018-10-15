@@ -32,10 +32,10 @@
             $this->validate($request, [
                 'name' => 'required|max:50',
             ]);
-            
-            Author::create([
-                'name' => $request->input('name'),
-            ]);
+
+//            $request->file('avatar')->store('avatars');
+
+            Author::create($request->all());
             
             return redirect('/');
             
@@ -57,6 +57,8 @@
             $author = Author::find($request->input('id'));
             $author->name = $request->input('name');
             $author->updated_at = date('Y-m-d H:i:s');
+            $author->uploadImage(request()->file('cover'), 'cover');
+            $author->uploadImage(request()->file('avatar'), 'avatar');
             $author->save();
             
             return redirect('/authors/'.$request->input("id"));

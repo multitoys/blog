@@ -2,6 +2,7 @@
     
     namespace App\Http\Controllers;
     
+    use App\Http\Requests\StoreBlogPost;
     use App\Post;
     use Illuminate\Http\Request;
     
@@ -20,7 +21,7 @@
             return view('posts.create', ['author' => $author]);
         }
     
-        public function storeNew(Request $request)
+        public function storeNew(StoreBlogPost $request)
         {
     
             $this->validate($request, [
