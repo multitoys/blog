@@ -5,7 +5,8 @@
     use App\Author;
     use Illuminate\Http\Request;
     use App\Post;
-    
+    use QCod\ImageUp\Exceptions\InvalidImageFieldException;
+
     class AuthorsController extends Controller
     {
         public function index()
@@ -34,8 +35,17 @@
             ]);
 
 //            $request->file('avatar')->store('avatars');
-
-            Author::create($request->all());
+    
+            $author = Author::create($request->all());
+//            try {
+                $author->uploadImage(request()->file('cover'), 'cover');
+//            } catch (InvalidImageFieldException $e) {
+//            }
+//            try {
+                $author->uploadImage(request()->file('avatar'), 'avatar');
+//            } catch (InvalidImageFieldException $e) {
+//            }
+            $author->save();
             
             return redirect('/');
             
@@ -57,8 +67,14 @@
             $author = Author::find($request->input('id'));
             $author->name = $request->input('name');
             $author->updated_at = date('Y-m-d H:i:s');
-            $author->uploadImage(request()->file('cover'), 'cover');
-            $author->uploadImage(request()->file('avatar'), 'avatar');
+            try {
+                $author->uploadImage(request()->file('cover'), 'cover');
+            } catch (InvalidImageFieldException $e) {
+            }
+            try {
+                $author->uploadImage(request()->file('avatar'), 'avatar');
+            } catch (InvalidImageFieldException $e) {
+            }
             $author->save();
             
             return redirect('/authors/'.$request->input("id"));

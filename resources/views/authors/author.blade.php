@@ -5,7 +5,7 @@
     <h1>All posts of {{ $author->name }}</h1>
 
     {!! $author->imageTag('avatar') !!}
-    {!! $author->imageTag('avatar') !!}
+    {!! $author->imageTag('cover') !!}
 
     <form method="post" action="/authors/update" enctype="multipart/form-data">
         {{csrf_field()}}
