@@ -2,6 +2,8 @@
     
     namespace App;
     
+    use App\Listeners\BlurFilter;
+    use App\Listeners\SharpenFilter;
     use Illuminate\Database\Eloquent\Model;
     use QCod\ImageUp\HasImageUploads;
 
@@ -10,25 +12,13 @@
         use HasImageUploads;
 
         // which disk to use for upload, can be override by field options
-        protected $imagesUploadDisk = 'public';
+//        protected $imagesUploadDisk = 'public';
 
         // path in disk to use for upload, can be override by field options
-        protected $imagesUploadPath = 'authors';
+//        protected $imagesUploadPath = 'authors';
         // assuming `users` table has 'cover', 'avatar' columns
         // mark all the columns as image fields
         protected static $imageFields = [
-            'cover' => [
-                // width to resize image after upload
-                'width' => 400,
-    
-                // height to resize image after upload
-                'height' => 400,
-    
-                // set true to crop image with the given width/height and you can also pass arr [x,y] coordinate for crop.
-                'crop' => true,
-    
-                'auto_upload' => false,
-            ],
 //            'avatar',
             'avatar' => [
                 // width to resize image after upload
@@ -39,9 +29,7 @@
 
                 // set true to crop image with the given width/height and you can also pass arr [x,y] coordinate for crop.
                 'crop' => true,
-                
-                'auto_upload' => false,
-                
+
                 // what disk you want to upload, default config('imageup.upload_disk')
 //                'disk' => 'public',
 
@@ -52,7 +40,7 @@
 //                'placeholder' => '/images/avatar-placeholder.svg',
 
                 // validation rules when uploading image
-//                'rules' => 'image|max:2000',
+//                'rules' => 'image|max:200',
 
                 // override global auto upload setting coming from config('imageup.auto_upload_images')
 //                'auto_upload' => false,
@@ -64,11 +52,11 @@
 //                'before_save' => BlurFilter::class,
 
                 // a hook that is triggered after the image is saved
-//                'after_save' => CreateWatermarkImage::class
+                'after_save' => SharpenFilter::class
             ],
         ];
 
-        protected $fillable = ['id', 'name', 'cover', 'avatar'];
+        protected $fillable = ['id', 'name', 'avatar'];
         
         public function posts(){
             return $this->hasMany(Post::class);

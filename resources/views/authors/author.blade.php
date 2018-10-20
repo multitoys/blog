@@ -7,21 +7,25 @@
     {!! $author->imageTag('avatar') !!}
     {!! $author->imageTag('cover') !!}
 
-    <form method="post" action="/authors/update" enctype="multipart/form-data">
+    <form method="post" action="/authors/{{ $author->id }}" enctype="multipart/form-data">
         {{csrf_field()}}
-        <div class="form-group">
-            <label for="exampleInputEmail1">Name</label>
-            <input type="text" name="name" class="form-control" value="{{ $author->name }}">
-        </div>
-        <div class="form-group">
-            <label for="exampleInputEmail1">Cover</label>
-            <input type="file" name="cover" class="form-control">
-        </div>
         <div class="form-group">
             <label for="exampleInputEmail1">Avatar</label>
             <input type="file" name="avatar" class="form-control">
         </div>
-        <input type="hidden" name="id" value="{{ $author->id }}">
+        <div class="form-group">
+            <label for="exampleInputEmail1">X</label>
+            <input type="text" name="x" class="form-control" value="">
+        </div>
+        <div class="form-group">
+            <label for="exampleInputEmail1">Y</label>
+            <input type="text" name="y" class="form-control" value="">
+        </div>
+        <div class="form-group">
+            <label for="exampleInputEmail1">Name</label>
+            <input type="text" name="name" class="form-control" value="{{ $author->name }}">
+        </div>
+        <input type="hidden" name="_method" value="put">
         <button type="submit" class="btn btn-primary">Update author</button>
     </form>
 

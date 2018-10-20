@@ -11,10 +11,6 @@
             <input type="text" name="name" class="form-control">
         </div>
         <div class="form-group">
-            <label for="exampleInputEmail1">Cover</label>
-            <input type="file" name="cover" class="form-control">
-        </div>
-        <div class="form-group">
             <label for="exampleInputEmail1">Avatar</label>
             <input type="file" name="avatar" class="form-control">
         </div>

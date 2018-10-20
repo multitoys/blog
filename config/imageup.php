@@ -11,7 +11,7 @@ return [
      * Default Image upload directory on the disc
      * eg. 'uploads' or 'user/avatar'
      */
-    'upload_directory' => 'authors',
+    'upload_directory' => 'images',
 
     /**
      * Auto upload images from incoming Request if same named field or

@@ -4,8 +4,6 @@
     
     use App\Author;
     use Illuminate\Http\Request;
-    use App\Post;
-    use QCod\ImageUp\Exceptions\InvalidImageFieldException;
 
     class AuthorsController extends Controller
     {
@@ -34,21 +32,9 @@
                 'name' => 'required|max:50',
             ]);
 
-//            $request->file('avatar')->store('avatars');
-    
-            $author = Author::create($request->all());
-//            try {
-                $author->uploadImage(request()->file('cover'), 'cover');
-//            } catch (InvalidImageFieldException $e) {
-//            }
-//            try {
-                $author->uploadImage(request()->file('avatar'), 'avatar');
-//            } catch (InvalidImageFieldException $e) {
-//            }
-            $author->save();
-            
+            Author::create($request->all());
+
             return redirect('/');
-            
         }
         
         public function delete($id)
@@ -59,24 +45,31 @@
             return redirect('/');
         }
         
-        public function update(Request $request)
+        public function update(Request $request, $id)
         {
             $this->validate($request, [
                 'name' => 'required|max:50',
             ]);
-            $author = Author::find($request->input('id'));
+            $author = Author::find($id);
             $author->name = $request->input('name');
             $author->updated_at = date('Y-m-d H:i:s');
-            try {
-                $author->uploadImage(request()->file('cover'), 'cover');
-            } catch (InvalidImageFieldException $e) {
-            }
-            try {
-                $author->uploadImage(request()->file('avatar'), 'avatar');
-            } catch (InvalidImageFieldException $e) {
-            }
+            $imageFile = request()->file('avatar');
+            $level = 90;
+            $author->setImagesField([
+                'avatar' => [
+                    'width' => 200,
+                    'before_save' => function($image) use ($level) {
+                        // The image will be 50 * 50, this will override the 100 * 100
+//                        $image->resize(50, 50);
+                        $image->sharpen($level);
+                    },
+                ]
+            ]);
+//            $author->cropTo($request->x, $request->y)
+//                ->uploadImage($request->file('avatar'), 'avatar');
+//            $author->uploadImage($request->file('avatar'), 'avatar');
             $author->save();
-            
-            return redirect('/authors/'.$request->input("id"));
+
+            return redirect('/authors/'.$id);
         }
     }

@@ -16,6 +16,7 @@
             Schema::create('authors', function (Blueprint $table) {
                 $table->increments('id');
                 $table->string('name', 50)->unique();
+                $table->string('avatar')->nullable();
                 $table->timestamps();
             });
         }
